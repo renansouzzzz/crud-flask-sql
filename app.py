@@ -35,7 +35,8 @@ def adicionar():
     else:
         return render_template('adicionar.html')
 
-@app.route('/delete/<int:id>')
+
+@app.route('/deletar/<int:id>')
 def deletar(id):
     flash('Colaborador excluído com sucesso!')
     colaborador = Colaborador.query.get(id)
@@ -45,10 +46,15 @@ def deletar(id):
 
 
 
-@app.route('/edit/')
-def editar():
-    pass
-
+@app.route('/editar/<int:id>', methods=['GET','POST'])
+def editar(id):
+    colaborador = Colaborador.query.get(id)
+    if request.method == 'POST':
+        colaborador.nome = request.form['nome']
+        colaborador.gmid = request.form['gmid']
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('editar.html', colaborador=colaborador)
 
 if __name__ == '__main__':
     db.create_all()

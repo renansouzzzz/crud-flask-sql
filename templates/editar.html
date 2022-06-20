@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar dados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+<form action="/editar/{{ colaborador.id }}" style="margin: 5%;" method="POST" class="container">
+<div class="row">
+    <h1 style="margin: 30px;">Edite suas informações:</h1>
+    <div class="col-md-6">
+        <input type="text" name="nome" id="nome" placeholder="Digite seu nome" class="form-control" value="{{ colaborador.nome }}">
+    </div>
+    <div class="col-md-6">
+        <input type="text" name="gmid" id="gmid" placeholder="GMID" class="form-control" value="{{ colaborador.gmid }}">
+    </div>
+</div>
+<br>
+<div class="row col-xs-12">
+    <button type="submit" class="btn btn-block btn-success">Enviar</button>
+
+</div>
+</form>
+</body>
+</html>
