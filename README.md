@@ -1,8 +1,8 @@
-#### CRUD + FLASK + SQLAlchemy
+# CRUD + FLASK + SQLAlchemy
 <hr>
 <hr>
 
-## Início
+# Início
 ![None](crud1.png)
 
 ## Adicionar informações
