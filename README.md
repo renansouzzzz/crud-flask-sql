@@ -1,6 +1,6 @@
 # CRUD + FLASK + SQLAlchemy
 <hr>
-<hr>
+
 
 ### Início
 ![None](crud1.png)
