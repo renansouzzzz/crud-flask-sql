@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Pseudo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+<h1 style="text-align: center;">Informações colaboradores</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="/adicionar">Adicionar colaborador</a>
+        </div>
+        <div class="col-xs-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>GMID</th>
+                        <th>Cargo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for i in colaboradores %}
+                <tr>
+                    <td>{{i.nome}}</td>
+                    <td>{{i.gmid}}</td>
+                    <td>
+                        <a href="/edit/{{i.id}}">Editar</a>
+                        <a href="/delete/{{i.id}}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
