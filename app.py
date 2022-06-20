@@ -34,6 +34,13 @@ def adicionar():
     else:
         return render_template('adicionar.html')
 
+@app.route('/delete/<int:id>')
+def deletar(id):
+    colaborador = Colaborador.query.get(id)
+    db.session.delete(colaborador)
+    db.session.commit()
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     db.create_all()
