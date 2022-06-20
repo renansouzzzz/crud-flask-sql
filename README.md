@@ -1,4 +1,5 @@
-### CRUD + FLASK + SQLAlchemy
+#### CRUD + FLASK + SQLAlchemy
+<hr>
 <hr>
 
 ## Início
@@ -7,8 +8,10 @@
 ## Adicionar informações
 ![None](crud2.png)
 
+## Editar usuário
+![None](crud4.png)
+
 ## Deletar usuário
 ![None](crud3.png)
 
-## Editar usuário
-![None](crud4.png)
+
