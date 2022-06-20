@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder='templates')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.sqlite3'
+app.config['SECRET_KEY'] = "secret"
 
 db = SQLAlchemy(app)
 
@@ -36,10 +37,17 @@ def adicionar():
 
 @app.route('/delete/<int:id>')
 def deletar(id):
+    flash('Colaborador excluído com sucesso!')
     colaborador = Colaborador.query.get(id)
     db.session.delete(colaborador)
     db.session.commit()
     return redirect(url_for('index'))
+
+
+
+@app.route('/edit/')
+def editar():
+    pass
 
 
 if __name__ == '__main__':
