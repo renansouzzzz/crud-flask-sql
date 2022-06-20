@@ -34,6 +34,7 @@
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
+                        <th>ID</th>
                         <th>Nome</th>
                         <th>GMID</th>
                         <th>Funções</th>
@@ -43,8 +44,9 @@
                 <tbody>
                 {% for i in colaboradores %}
                 <tr>
-                    <td>{{i.nome}}</td>
-                    <td>{{i.gmid}}</td>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.nome }}</td>
+                    <td>{{ i.gmid }}</td>
                     <td>
                         <a style="display: flex;" href="/editar/{{i.id}}">Editar</a>
                         <a href="/deletar/{{i.id}}">Excluir</a>
