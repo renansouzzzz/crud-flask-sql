@@ -1,4 +1,4 @@
-# CRUD + FLASK + SQLAlchemy
+# CRUD - FLASK + SQLAlchemy
 <hr>
 
 
