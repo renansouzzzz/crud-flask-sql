@@ -27,7 +27,7 @@ $ flask run
 
 
 ```bash
-  git clone https://github.com/renansouzzzz/flask-sql.git
+  git clone https://github.com/renansouzzzz/crud-flask-sql.git
 ```
 
 
