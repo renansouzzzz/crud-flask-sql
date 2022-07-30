@@ -11,23 +11,33 @@
 </head>
 
 <body>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Home</a>
+            <div class="collapse navbar-collapse" id="navbarText">
+        </div>
+    </div>
+</nav>
 
-<h1 style="text-align: center; margin: 5%;;">Informações colaboradores</h1>
-
+<div style="margin: 5em;">
+    <div class="row" style="text-align: center; margin: 5%;">
+        <a>Informações colaboradores</a>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
             <a style="margin: 2%;" href="/adicionar" class="btn btn-primary">Adicionar colaborador</a>
+                <a href="/feedback" class="btn btn-primary">Feedback</a>
                     {% for message in get_flashed_messages() %}
-
             <div class="alert alert-success" role="alert">
                     <strong>{{ message }}</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-    {% endfor %}
+                {% endfor %}
         </div>
 
         <div class="col-xs-12">
