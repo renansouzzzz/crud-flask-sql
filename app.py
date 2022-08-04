@@ -1,23 +1,45 @@
 from flask import Flask, render_template, request, url_for, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_session import Session
 
 app = Flask(__name__, template_folder='templates')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.sqlite3'
 app.config['SECRET_KEY'] = "secret"
+app.config['SESSION_TYPE'] = 'sqlalchemy'
 
 db = SQLAlchemy(app)
 
+app.config['SESSION_SQLALCHEMY'] = db
+sess = Session(app)
 
 class Colaborador(db.Model):
     id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(150))
     gmid = db.Column(db.Integer)
     feedback = db.Column(db.String(150))
+    
+class Login(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(150))
+    password = db.Column(db.String(50))
 
-    def __init__(self, nome, gmid):
+    def __init__(self, nome, gmid, username, password):
         self.nome = nome
         self.gmid = gmid
+        self.username = username
+        self.password = password
 
+@app.route('/registrar', methods=['GET', 'POST'] )
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        acesso = Login(username, password)
+        db.session.add(acesso)
+        db.session.commit()
+        return redirect(url_for('registrar'))
+    else:
+        return render_template('registrar.html') 
 
 @app.route('/')
 def index():
@@ -25,7 +47,7 @@ def index():
     return render_template('index.html', colaboradores=colaboradores)
 
 @app.route('/adicionar', methods=['GET', 'POST'])
-def adicionar():
+def add():
     if request.method == 'POST':
         nome = request.form['nome']
         gmid = request.form['gmid']
@@ -38,7 +60,7 @@ def adicionar():
         return render_template('adicionar.html')
 
 @app.route('/deletar/<int:id>')
-def deletar(id):
+def delete(id):
     colaborador = Colaborador.query.get(id)
     db.session.delete(colaborador)
     db.session.commit()
@@ -46,7 +68,7 @@ def deletar(id):
     return redirect(url_for('index'))
 
 @app.route('/editar/<int:id>', methods=['GET','POST'])
-def editar(id):
+def edit(id):
     colaborador = Colaborador.query.get(id)
     if request.method == 'POST':
         colaborador.nome = request.form['nome']
@@ -57,7 +79,6 @@ def editar(id):
 
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
-    colaboradores = Colaborador.query.all()
     if request.method == 'POST':
         feedback = request.form['feedback']
         feedbacks = Colaborador(feedback)
