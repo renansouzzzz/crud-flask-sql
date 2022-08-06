@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from flask import Flask, render_template, request, url_for, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
@@ -17,29 +18,15 @@ class Colaborador(db.Model):
     nome = db.Column(db.String(150))
     gmid = db.Column(db.Integer)
     feedback = db.Column(db.String(150))
-    
-class Login(db.Model):
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(150))
-    password = db.Column(db.String(50))
 
-    def __init__(self, nome, gmid, username, password):
+    def __init__(self, nome, gmid, feedback):
         self.nome = nome
         self.gmid = gmid
+        self.feedback = feedback
+    
+    def constructor(self, username, password):
         self.username = username
         self.password = password
-
-@app.route('/registrar', methods=['GET', 'POST'] )
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        acesso = Login(username, password)
-        db.session.add(acesso)
-        db.session.commit()
-        return redirect(url_for('registrar'))
-    else:
-        return render_template('registrar.html') 
 
 @app.route('/')
 def index():
@@ -78,17 +65,36 @@ def edit(id):
     return render_template('editar.html', colaborador=colaborador)
 
 @app.route('/feedback', methods=['GET', 'POST'])
-def feedback():
+def feedback(nome):
+    get = Colaborador.query.get(nome)
     if request.method == 'POST':
         feedback = request.form['feedback']
-        feedbacks = Colaborador(feedback)
+        feedbacks = Colaborador(NULL, NULL, feedback)
         db.session.add(feedbacks)
         db.session.commit()
         flash('Feedback enviado com sucesso!')
         return redirect(url_for('index'))
     else: 
-        return render_template('feedback.html', colaboradores=colaboradores)
-    
+        return render_template('feedback.html', get=get)
+        
+class Login(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(150))
+    password = db.Column(db.String(50))
+
+@app.route('/registrar', methods=['GET', 'POST'] )
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        acesso = Login(username, password)
+        db.session.add(acesso)
+        db.session.commit()
+        return redirect(url_for('registrar'))
+        flash(f'Usuário {username} registrado com sucesso!')
+    else:
+        return render_template('registrar.html') 
+
 if __name__ == '__main__':
     db.create_all()
     app.run(debug=True)

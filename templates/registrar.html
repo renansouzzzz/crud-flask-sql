@@ -35,16 +35,17 @@
                         <a class="nav-link" href="#">Registre-se</a>
                     </li>
                 </ul>
-    
             </div>
         </div>
     </nav>
-    
+    {% for msg in get_flashed_messages() %}
     <main class="login-form">
+        {{ msg }}
         <div class="cotainer">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
+                        {% endfor %}
                         <div class="card-header">Registrar</div>
                         <div class="card-body">
                             <form action="/registrar" method="POST">

@@ -33,8 +33,8 @@
     <label for="browser">Selecione seu nome: </label>
     <div>
         <select class="form-select" aria-label="multiple select example">
-            {% for i in colaboradores %}
-                <option selected>{{i.nome}}</option>
+            {% for i in get %}
+                <option selected>{{ i.nome }}</option>
                 {% endfor %}
 </select>
             
