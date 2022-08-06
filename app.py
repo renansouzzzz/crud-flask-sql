@@ -30,15 +30,15 @@ class Colaborador(db.Model):
 
 @app.route('/')
 def index():
-    colaboradores = Colaborador.query.all()
-    return render_template('index.html', colaboradores=colaboradores)
+    c = Colaborador
+    return render_template('index.html', colaboradores=c.query.all())
 
 @app.route('/adicionar', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
         nome = request.form['nome']
         gmid = request.form['gmid']
-        colaboradores = Colaborador(nome, gmid)
+        colaboradores = Colaborador(nome, gmid, NULL)
         db.session.add(colaboradores)
         db.session.commit()
         flash(f'Colaborador {nome} incluído com sucesso!')
@@ -65,8 +65,8 @@ def edit(id):
     return render_template('editar.html', colaborador=colaborador)
 
 @app.route('/feedback', methods=['GET', 'POST'])
-def feedback(nome):
-    get = Colaborador.query.get(nome)
+def feedback():
+    get = Colaborador.query.all()
     if request.method == 'POST':
         feedback = request.form['feedback']
         feedbacks = Colaborador(NULL, NULL, feedback)
